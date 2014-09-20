@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702012723) do
+ActiveRecord::Schema.define(version: 20140907150938) do
+
+  create_table "events", force: true do |t|
+    t.string   "title",           default: "", null: false
+    t.text     "about"
+    t.string   "category"
+    t.datetime "datetime"
+    t.decimal  "price"
+    t.integer  "user_profile_id"
+  end
+
+  create_table "user_profiles", force: true do |t|
+    t.string  "name"
+    t.text    "about"
+    t.integer "user_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -26,9 +41,11 @@ ActiveRecord::Schema.define(version: 20140702012723) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_profile_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["user_profile_id"], name: "index_users_on_user_profile_id"
 
 end
