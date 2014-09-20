@@ -6,8 +6,9 @@ gem 'rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-# Use SCSS for stylesheets
-gem 'sass-rails'
+# CSS framework
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'sass-rails', '>= 3.2'
 
 # Template language for views
 gem 'slim'
@@ -29,6 +30,9 @@ gem 'spring', group: :development
 
 # Authentication solution
 gem 'devise'
+
+# Forms components
+gem 'simple_form'
 
 group :test, :development do
   gem 'pry'

@@ -1,0 +1,14 @@
+= link_to 'Voltar', events_path
+
+h1 = @event.title
+
+p = l(@event.datetime, format: :short)
+
+p = @event.category
+
+p = @event.price
+
+p = @event.about
+
+- if user_signed_in? and @event.user_profile.id == current_user.user_profile.id
+  a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento

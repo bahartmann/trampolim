@@ -1,1 +1,11 @@
-h1 Index
+h1 Index Eventos
+
+a href=new_user_session_path Login
+
+- if user_signed_in?
+  a.btn.btn-primary href=new_event_path Criar Novo Evento
+
+ul
+- for event in @events do
+  li
+    a href=event_path(event) = event.title
