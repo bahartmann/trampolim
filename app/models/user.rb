@@ -7,6 +7,6 @@ class User < ActiveRecord::Base
   has_one :user_profile
 
   def profile
-    user_profile or user_profile.create
+    user_profile or UserProfile.create(user: self)
   end
 end

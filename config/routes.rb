@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'events#index'
 
   resources :events
+  resources :user_profiles, only: [:show, :edit, :update]
 
 
 

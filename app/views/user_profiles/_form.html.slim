@@ -1,0 +1,13 @@
+= simple_form_for(@user_profile, html: {multipart: true, class: 'form-horizontal' }) do |f|
+  = f.input :name, required: true
+  = f.input :about, as: :text
+  
+  = image_tag(@user_profile.gravatar_path(100), class: "img-circle user-img")
+  
+  p
+    | Atualize seu avatar no
+    a href="https://pt.gravatar.com/" target="_blank"  Gravatar
+    | !
+  br/
+  
+  = f.button :submit

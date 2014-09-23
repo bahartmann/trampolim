@@ -1,0 +1,7 @@
+h1 = @user_profile.name
+
+= image_tag(@user_profile.gravatar_path(100), class: "img-circle user-img")
+
+p = @user_profile.about
+
+a.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
