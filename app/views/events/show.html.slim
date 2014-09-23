@@ -1,16 +1,37 @@
 = link_to 'Voltar', events_path
 
 h1 = @event.title
-
-p = l(@event.datetime, format: :short)
-
-p = @event.category
-
-p = @event.price
-
-p = @event.about
-
 p = image_tag(@event.poster_url) if @event.poster?
 
-- if user_signed_in? and @event.user_profile.id == current_user.user_profile.id
-  a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
+.col-sm-8
+  .row.panel.owner-box
+    .col-sm-2
+      = image_tag(@event.user_profile.gravatar_path(100), class: "img-circle")
+    .col-sm-10
+      p
+        | Evento criado por
+        br/
+        a href=user_profile_path(@event.user_profile) = @event.user_profile.name
+  
+  p
+    | Sobre
+    br/
+    = @event.about
+
+  p
+    | Data
+    br/
+    = l(@event.datetime, format: :short)
+
+  p
+    | Categoria
+    br/
+    = @event.category
+
+  p
+    | Preço
+    br/
+    = @event.price
+
+  - if user_signed_in? and @event.user_profile.id == current_user.user_profile.id
+    a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento

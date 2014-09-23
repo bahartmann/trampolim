@@ -27,7 +27,7 @@ html
                     | Conta
                     span.caret
                   ul.dropdown-menu role="menu" 
-                    li.dropdown-header= image_tag(current_user.profile.gravatar_path(100), class: "img-circle user-img")
+                    li.dropdown-header= image_tag(current_user.profile.gravatar_path(100), class: "img-circle")
                     -if current_user.profile.name?
                       li.dropdown-header= current_user.profile.name
                     li.divider

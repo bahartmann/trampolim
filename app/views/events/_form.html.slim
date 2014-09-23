@@ -1,13 +1,19 @@
-= simple_form_for(@event, html: {multipart: true, class: 'form-horizontal' }) do |f|
-  = f.input :title, required: true
-  = f.input :about, as: :text
-  = f.input :category, collection: Event.available_categories
-  = f.input :datetime, as: :date_time_picker
-  = f.input :price, as: :decimal
+= simple_form_for(@event, html: {multipart: true, role: 'form' }) do |f|
+  
+  .form-group
+    = f.input :title, required: true, class: 'form-control'
+  .form-group
+    = f.input :about, as: :text, class: 'form-control'
+  .form-group
+    = f.input :category, collection: Event.available_categories, class: 'form-control'
+  .form-group
+    = f.input :datetime, as: :date_time_picker
+  .form-group
+    = f.input :price, as: :decimal, class: 'form-control'
 
-  = image_tag(@event.poster_url) if @event.poster?
+  .form-group
+    = image_tag(@event.poster_url) if @event.poster?
+    = f.file_field :poster
+    = f.hidden_field :poster_cache
 
-  = f.file_field :poster
-  = f.hidden_field :poster_cache
-
-  = f.button :submit
+  = f.button :submit, class: 'btn btn-default'
