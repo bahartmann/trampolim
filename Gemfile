@@ -34,6 +34,9 @@ gem 'devise'
 # Forms components
 gem 'simple_form'
 
+# Image handler
+gem 'carrierwave'
+
 group :test, :development do
   gem 'pry'
   gem 'pry-nav'

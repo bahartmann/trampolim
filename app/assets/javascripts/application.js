@@ -12,6 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
 //= require bootstrap-sprockets
+//= require_tree .
+
+$(function() {
+  $('.form-datetime').datetimepicker({
+    autoclose: true,
+    todayBtn: true,
+    pickerPosition: "bottom-left",
+    format: 'd/m/y h:i'
+  });
+});

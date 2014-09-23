@@ -10,4 +10,6 @@ class Event < ActiveRecord::Base
   validates_presence_of :title
   validates_inclusion_of :category, in: Event.available_categories
 
+  mount_uploader :poster, PosterUploader
+
 end

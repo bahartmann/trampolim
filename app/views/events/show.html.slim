@@ -10,5 +10,7 @@ p = @event.price
 
 p = @event.about
 
+p = image_tag(@event.poster_url) if @event.poster?
+
 - if user_signed_in? and @event.user_profile.id == current_user.user_profile.id
   a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento

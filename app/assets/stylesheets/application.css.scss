@@ -1,3 +1,22 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "user_session";
+@import "jquery.datetimepicker";
+
+.navbar-brand {
+  font-size: 28px;
+}
+
+.event-card {
+  box-shadow: 0 1px 4px #b9b9b9;
+  height: 400px;
+  margin-bottom: 10px;
+
+  .event-poster {
+    width: 100%;
+    height: 200px;
+  }
+  .event-informations {
+    padding: 5px;
+  }
+}

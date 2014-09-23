@@ -1,9 +1,13 @@
-= simple_form_for(@event, html: {class: 'form-horizontal' }) do |f|
+= simple_form_for(@event, html: {multipart: true, class: 'form-horizontal' }) do |f|
   = f.input :title, required: true
   = f.input :about, as: :text
   = f.input :category, collection: Event.available_categories
-  = f.input :datetime, as: :date, start_year: Date.today.year,
-                            end_year: Date.today.year + 20,
-                            order: [:day, :month, :year]
+  = f.input :datetime, as: :date_time_picker
   = f.input :price, as: :decimal
+
+  = image_tag(@event.poster_url) if @event.poster?
+
+  = f.file_field :poster
+  = f.hidden_field :poster_cache
+
   = f.button :submit
