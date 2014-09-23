@@ -41,8 +41,11 @@ html
                 li
                   a href=new_user_session_path  Entrar
           /! /.nav-collapse
-      p.notice= notice
-      p.alert= alert
+      
 
       .container
+        - if notice.present?
+          p.alert.alert-warning= notice
+        - if alert.present?
+          p.alert.alert-danger= alert
         = yield
