@@ -83,13 +83,12 @@ end
 
 #then
 Then(/^I see an invalid login message$/) do
-  page.should have_content "Invalid email or password."
+  expect(page).to have_content "Invalid email or password."
 end
 
 Then(/^I should be signed out$/) do
-  page.should have_content "Sign up"
-  page.should have_content "Sign in"
-  page.should_not have_content "Logout"
+  page.should have_content "Entrar"
+  page.should_not have_content "Conta"
 end
 
 Then(/^I see a successful sign in message$/) do
@@ -103,7 +102,7 @@ Then(/^I should be signed in$/) do
 end
 
 Then(/^I should see a signed out message$/) do
-  page.should have_content "You need to sign in or sign up before continuing."
+  page.should have_content "Signed out successfully."
 end
 
 Then(/^I should see a successful sign up message$/) do
@@ -168,7 +167,7 @@ def sign_up
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
-  click_button "Sign up"
+  click_button "Cadastrar"
   find_user
 end
 
@@ -176,5 +175,5 @@ def sign_in
   visit '/users/sign_in'
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
-  click_button "Sign in"
+  click_button "Entrar"
 end
