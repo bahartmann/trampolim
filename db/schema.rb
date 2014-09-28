@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920224017) do
+ActiveRecord::Schema.define(version: 20140928171834) do
 
   create_table "events", force: true do |t|
     t.string   "title",           default: "", null: false
     t.text     "about"
     t.string   "category"
     t.datetime "datetime"
-    t.decimal  "price"
+    t.integer  "price"
     t.integer  "user_profile_id"
     t.string   "poster"
   end

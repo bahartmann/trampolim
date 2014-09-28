@@ -9,7 +9,7 @@
   .form-group
     = f.input :datetime, as: :date_time_picker
   .form-group
-    = f.input :price, as: :decimal, class: 'form-control'
+    = f.input :price, as: :radio_buttons, value_method: :value, collection: Event.available_prices.map { |i| MoneyRange.new(i) }
 
   .form-group
     = image_tag(@event.poster_url) if @event.poster?

@@ -19,19 +19,16 @@ p = image_tag(@event.poster_url) if @event.poster?
     = @event.about
 
   p
-    | Data
-    br/
+    | Data: 
     = l(@event.datetime, format: :short)
 
   p
-    | Categoria
-    br/
+    | Categoria: 
     = @event.category
 
   p
-    | Preço
-    br/
-    = @event.price
+    | Preço: 
+    = @event.money_range
 
   - if user_signed_in? and @event.user_profile.id == current_user.user_profile.id
     a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
