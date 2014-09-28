@@ -12,4 +12,6 @@ class Event < ActiveRecord::Base
 
   mount_uploader :poster, PosterUploader
 
+  scope :category, -> category { where(category: category) }
+
 end

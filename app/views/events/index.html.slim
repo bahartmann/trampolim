@@ -4,9 +4,14 @@ h1 Veja eventos de seu interesse!
 - if user_signed_in?
   a.btn.btn-primary href=new_event_path Criar Novo Evento
 
+.btn-group
+  = filter_button 'Plays', 'play', plays_events_path, @category
+  = filter_button 'Concerts', 'concert', concerts_events_path, @category
+  = filter_button 'Exibithions', 'exibithion', exibithions_events_path, @category
+
 ul
 - for event in @events do
-  .col-lg-4
+  .col-lg-3.col-md-4.col-sm-6.col-xs-12
     .event-card
       - if event.poster?
         = image_tag(event.poster_url, class: "event-poster")

@@ -3,11 +3,19 @@
 class EventsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
+  before_filter :fetch_category
 
+  def fetch_category
+    @category = params[:category]
+  end
 
   # GET /
   def index
-    @events = Event.all
+    if (@category)
+      @events = Event.category(@category)
+    else
+      @events = Event.all
+    end
   end
 
   def new
