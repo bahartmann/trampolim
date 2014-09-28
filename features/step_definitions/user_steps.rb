@@ -83,7 +83,7 @@ end
 
 #then
 Then(/^I see an invalid login message$/) do
-  expect(page).to have_content "Invalid email or password."
+  expect(page).to have_content I18n.t 'devise.failure.invalid'
 end
 
 Then(/^I should be signed out$/) do
@@ -92,7 +92,7 @@ Then(/^I should be signed out$/) do
 end
 
 Then(/^I see a successful sign in message$/) do
-  page.should have_content "Signed in successfully."
+  page.should have_content I18n.t 'devise.sessions.signed_in'
 end
 
 Then(/^I should be signed in$/) do
@@ -102,15 +102,17 @@ Then(/^I should be signed in$/) do
 end
 
 Then(/^I should see a signed out message$/) do
-  page.should have_content "Signed out successfully."
+  page.should have_content I18n.t 'devise.sessions.signed_out'
 end
 
 Then(/^I should see a successful sign up message$/) do
-  page.should have_content "Welcome! You have signed up successfully."
+  page.should have_content I18n.t 'devise.registrations.signed_up'
 end
 
 Then(/^I should see an invalid email message$/) do
-  page.should have_content "Email is invalid"
+  # ???????????????????????????
+  # "Email %{I18n.t :invalid, scope: [:errors, :messages]}"
+  page.should have_content I18n.t 'errors.messages.invalid'
 end
 
 Then(/^I should see a missing password message$/) do
@@ -126,7 +128,7 @@ Then(/^I should see a mismatched password message$/) do
 end
 
 Then(/^I should see an account edited message$/) do
-  page.should have_content "You updated your account successfully."
+  page.should have_content I18n.t 'errors.messages.blank'
 end
 
 Then(/^I should see my name$/) do
