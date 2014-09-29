@@ -3,19 +3,22 @@
 class EventsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_filter :fetch_category
+  before_filter :fetch_parameters
 
-  def fetch_category
+  def fetch_parameters
     @category = params[:category]
+    @price = params[:price]
   end
 
   # GET /
   def index
-    if (@category)
-      @events = Event.category(@category)
-    else
-      @events = Event.all
-    end
+    @events = apply_filters Event.all
+  end
+
+  def apply_filters events
+    events = events.with_category @category if @category
+    events = events.within_price_range_of @price if @price
+    events
   end
 
   def new

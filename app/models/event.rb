@@ -16,7 +16,8 @@ class Event < ActiveRecord::Base
 
   mount_uploader :poster, PosterUploader
 
-  scope :category, -> category { where(category: category) }
+  scope :with_category, -> category { where(category: category) }
+  scope :within_price_range_of, -> price { where(price: price) }
 
   def money_range
     MoneyRange.new(price)
