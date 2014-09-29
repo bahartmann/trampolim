@@ -2,12 +2,18 @@
 h1 Veja eventos de seu interesse!
 
 - if user_signed_in?
-  a.btn.btn-primary href=new_event_path Criar Novo Evento
+  a.btn.btn-primary.pull-right href=new_event_path Criar Novo Evento
 
-.btn-group
-  = filter_button 'Plays', 'play', plays_events_path, @category
-  = filter_button 'Concerts', 'concert', concerts_events_path, @category
-  = filter_button 'Exibithions', 'exibithion', exibithions_events_path, @category
+.row
+  .btn-group
+    = filter_button 'Plays', 'play', plays_events_path(price: @price), @category
+    = filter_button 'Concerts', 'concert', concerts_events_path(price: @price), @category
+    = filter_button 'Exibithions', 'exibithion', exibithions_events_path(price: @price), @category
+
+  .btn-group
+    = filter_button MoneyRange.new(1), '1', url_for(price: 1), @price
+    = filter_button MoneyRange.new(2), '2', url_for(price: 2), @price
+    = filter_button MoneyRange.new(3), '3', url_for(price: 3), @price
 
 ul
 - for event in @events do
