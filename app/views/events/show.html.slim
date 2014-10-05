@@ -27,14 +27,17 @@ p = image_tag(@event.poster_url) if @event.poster?
       dt Preço 
       dd= @event.money_range
 
-  .col-sm-2
-    h4 Confirmados
-    ul
-    - for guest in @event.confirmed_guests do
-      = link_to(image_tag(guest.gravatar_path(50), class: "img-circle", alt: guest.name), user_profile_path(guest), title: guest.name)
+  -if @event.confirmed_guests.count > 0
+    .col-sm-2
+      h4 Confirmados
+      ul
+      - for guest in @event.confirmed_guests do
+        = link_to(image_tag(guest.gravatar_path(50), class: "img-circle", alt: guest.name), user_profile_path(guest), title: guest.name)
 
-- unless @event.confirmed_guests.include? current_user.user_profile
-  =link_to 'Confirmar Presença', confirm_event_path(@event), class: "btn btn-default", method: :put
 
-- if user_signed_in? and @event.user_profile.id == current_user.user_profile.id
-  a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
+- if user_signed_in?
+  - unless @event.confirmed_guests.include? current_user.user_profile
+    =link_to 'Confirmar Presença', confirm_event_path(@event), class: "btn btn-default", method: :put
+
+  - if @event.user_profile.id == current_user.user_profile.id
+    a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
