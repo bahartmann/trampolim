@@ -34,4 +34,5 @@ p = @user_profile.about
             p
               a.btn.btn-default href=event_path(event) role="button" Ver mais »
 
-a.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
+- if current_user.user_profile.id == @user_profile.id
+  a.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
