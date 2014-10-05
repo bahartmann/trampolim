@@ -54,6 +54,14 @@ class EventsController < ApplicationController
     end
   end
 
+  def confirm
+    @event = Event.find(params[:id])
+    unless @event.confirmed_guests.include? current_user.user_profile
+      @event.confirmed_guests << current_user.user_profile
+    end
+    redirect_to @event
+  end
+
   private
 
   def event_params

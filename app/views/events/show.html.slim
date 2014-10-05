@@ -3,28 +3,38 @@
 h1 = @event.title
 p = image_tag(@event.poster_url) if @event.poster?
 
-.col-sm-8
-  .row.panel.owner-box
-    .col-sm-2
-      = image_tag(@event.user_profile.gravatar_path(100), class: "img-circle")
-    .col-sm-10
-      p
-        | Evento criado por
-        br/
-        a href=user_profile_path(@event.user_profile) = @event.user_profile.name
-  
-  dl 
-    dt Sobre
-    dd= @event.about
-
-    dt Data 
-    dd= l(@event.datetime, format: :short)
+.row.panel.owner-box
+  .col-sm-2
+    = image_tag(@event.user_profile.gravatar_path(100), class: "img-circle")
+  .col-sm-10
+    p
+      | Evento criado por
+      br/
+      a href=user_profile_path(@event.user_profile) = @event.user_profile.name
+.row
+  .col-sm-8
     
-    dt Categoria
-    dd= @event.category
+    dl 
+      dt Sobre
+      dd= @event.about
 
-    dt Preço 
-    dd= @event.money_range
+      dt Data 
+      dd= l(@event.datetime, format: :short)
+      
+      dt Categoria
+      dd= @event.category
 
-  - if user_signed_in? and @event.user_profile.id == current_user.user_profile.id
-    a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
+      dt Preço 
+      dd= @event.money_range
+
+  .col-sm-2
+    h4 Confirmados
+    ul
+    - for guest in @event.confirmed_guests do
+      = link_to(image_tag(guest.gravatar_path(50), class: "img-circle", alt: guest.name), user_profile_path(guest), title: guest.name)
+
+- unless @event.confirmed_guests.include? current_user.user_profile
+  =link_to 'Confirmar Presença', confirm_event_path(@event), class: "btn btn-default", method: :put
+
+- if user_signed_in? and @event.user_profile.id == current_user.user_profile.id
+  a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento

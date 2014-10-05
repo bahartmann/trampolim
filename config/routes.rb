@@ -12,8 +12,10 @@ Rails.application.routes.draw do
       get 'concerts', to: 'events#index', category: 'concert'
       get 'exibithions', to: 'events#index', category: 'exibithion'
     end
+    member do
+      put 'confirm', to: 'events#confirm'
+    end
   end
-
 
   resources :user_profiles, only: [:show, :edit, :update]
 
