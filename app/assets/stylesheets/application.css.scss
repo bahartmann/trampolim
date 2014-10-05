@@ -21,6 +21,20 @@
   }
 }
 
+.mini-event-card {
+  box-shadow: 0 1px 4px #b9b9b9;
+  height: 200px;
+  margin-bottom: 5px;
+
+  .event-poster {
+    width: 100%;
+    height: 100px;
+  }
+  .event-informations {
+    padding: 5px;
+  }
+}
+
 .owner-box {
   text-align: left;
   p {

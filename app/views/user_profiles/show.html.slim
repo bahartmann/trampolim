@@ -4,4 +4,34 @@ h1 = @user_profile.name
 
 p = @user_profile.about
 
+- if @user_profile.events.count > 0
+  .row
+    h3 Eventos Criados
+    - for event in @user_profile.events do
+      .col-lg-2.col-md-3.col-sm-4.col-xs-6
+        .mini-event-card
+          - if event.poster?
+            = image_tag(event.poster_url, class: "event-poster")
+          - else
+            = image_tag("defautl-poster.jpg", class: "event-poster")
+          .event-informations  
+            h5= event.title
+            p
+              a.btn.btn-default href=event_path(event) role="button" Ver mais »
+
+- if @user_profile.confirmed_events.count > 0
+  .row
+    h3 Eventos Confirmados
+    - for event in @user_profile.confirmed_events do
+      .col-lg-2.col-md-3.col-sm-4.col-xs-6
+        .mini-event-card
+          - if event.poster?
+            = image_tag(event.poster_url, class: "event-poster")
+          - else
+            = image_tag("defautl-poster.jpg", class: "event-poster")
+          .event-informations  
+            h5= event.title
+            p
+              a.btn.btn-default href=event_path(event) role="button" Ver mais »
+
 a.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
