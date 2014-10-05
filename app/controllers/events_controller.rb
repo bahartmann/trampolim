@@ -3,7 +3,20 @@
 class EventsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_filter :fetch_parameters
+  before_action :fetch_parameters, only: [:index]
+  before_action :get_event, only: [:edit, :show, :update, :confirm]
+  before_action :authorize_user!, only: [:edit, :update]
+
+  def authorize_user!
+    unless @event.user_profile.id == current_user.user_profile.id
+      flash[:alert] = "Você deve ser dono desse evento para editá-lo."
+      redirect_to event_path(@event)
+    end
+  end
+
+  def get_event
+    @event = Event.find(params[:id])
+  end
 
   def fetch_parameters
     @category = params[:category]
@@ -26,11 +39,9 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.find(params[:id])
   end
 
   def show
-    @event = Event.find(params[:id])
   end
 
   def create
@@ -46,7 +57,6 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event = Event.find(params[:id])
     if @event.update_attributes(event_params)
       redirect_to @event
     else
@@ -55,7 +65,6 @@ class EventsController < ApplicationController
   end
 
   def confirm
-    @event = Event.find(params[:id])
     unless @event.confirmed_guests.include? current_user.user_profile
       @event.confirmed_guests << current_user.user_profile
     end
@@ -69,5 +78,4 @@ class EventsController < ApplicationController
       .require(:event)
       .permit(:title, :about, :category, :datetime, :price, :poster, :poster_cache)
   end
-
 end
