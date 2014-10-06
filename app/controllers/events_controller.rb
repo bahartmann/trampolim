@@ -4,7 +4,8 @@ class EventsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :fetch_parameters, only: [:index]
-  before_action :get_event, only: [:edit, :show, :update, :confirm]
+  before_action :get_event, only: [:edit, :show, :update, :confirm, :comment, :rating]
+  before_action :get_user_rating, only: [:show, :rating]
   before_action :authorize_user!, only: [:edit, :update]
 
   def authorize_user!
@@ -16,6 +17,10 @@ class EventsController < ApplicationController
 
   def get_event
     @event = Event.find(params[:id])
+  end
+
+  def get_user_rating
+    @rating = @event.ratings.find_by(user_profile: current_user.user_profile) or @event.ratings.build(value: 0) if user_signed_in?
   end
 
   def fetch_parameters
@@ -71,6 +76,24 @@ class EventsController < ApplicationController
     redirect_to @event
   end
 
+  def comment
+    comment = @event.comments.build(comment_params)
+    comment.user_profile = current_user.user_profile
+    unless comment.save()
+      flash[:alert] = "Não foi possível criar seu comentário."
+    end
+    redirect_to @event
+  end
+
+  def rating
+    @rating.user_profile = current_user.user_profile
+    @rating.value = params['rating']['value']
+    unless @rating.save()
+      flash[:alert] = "Não foi possível avaliar este evento."
+    end
+    redirect_to @event
+  end
+
   private
 
   def event_params
@@ -78,4 +101,11 @@ class EventsController < ApplicationController
       .require(:event)
       .permit(:title, :about, :category, :datetime, :price, :poster, :poster_cache)
   end
+
+  def comment_params
+    params
+      .require(:comment)
+      .permit(:text)
+  end
+
 end

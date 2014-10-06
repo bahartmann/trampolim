@@ -23,4 +23,10 @@ $(function() {
     pickerPosition: "bottom-left",
     format: 'd/m/y h:i'
   });
+
+  $('.js-rating-star').click(function(){
+    $('.js-rating-field').val($(this).attr('value'));
+    $('.js-rating-form').submit();
+    return false;
+  });
 });

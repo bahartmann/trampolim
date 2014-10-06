@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930004528) do
+ActiveRecord::Schema.define(version: 20141006021007) do
+
+  create_table "comments", force: true do |t|
+    t.text     "text"
+    t.integer  "user_profile_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "events", force: true do |t|
     t.string   "title",           default: "", null: false
@@ -26,6 +34,12 @@ ActiveRecord::Schema.define(version: 20140930004528) do
   create_table "events_guests", id: false, force: true do |t|
     t.integer "event_id"
     t.integer "user_profile_id"
+  end
+
+  create_table "ratings", force: true do |t|
+    t.integer "value"
+    t.integer "user_profile_id"
+    t.integer "event_id"
   end
 
   create_table "user_profiles", force: true do |t|

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     end
     member do
       put 'confirm', to: 'events#confirm'
+      post 'comment', to: 'events#comment'
+      post 'rating', to: 'events#rating'
     end
   end
 

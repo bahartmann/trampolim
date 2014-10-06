@@ -11,7 +11,9 @@ class Event < ActiveRecord::Base
 
   belongs_to :user_profile
   has_and_belongs_to_many :confirmed_guests, class_name: 'UserProfile', join_table: :events_guests
-  
+  has_many :comments
+  has_many :ratings
+
   validates_presence_of :title
   validates_inclusion_of :category, in: Event.available_categories
 

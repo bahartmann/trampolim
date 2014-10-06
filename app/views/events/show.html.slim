@@ -6,11 +6,30 @@ p = image_tag(@event.poster_url) if @event.poster?
 .row.panel.owner-box
   .col-sm-2
     = image_tag(@event.user_profile.gravatar_path(100), class: "img-circle")
-  .col-sm-10
+  .col-sm-4
     p
       | Evento criado por
       br/
       a href=user_profile_path(@event.user_profile) = @event.user_profile.name
+
+.row.panel.owner-box
+  .col-sm-2
+    p Avaliação
+    h4 -
+  .col-sm-4
+    -if user_signed_in?
+      = simple_form_for(@rating, html: { method: 'post', role: 'form', class: 'js-rating-form' }, url: url_for(action: :rating)) do |f|
+
+        - 5.times do |i|
+          a.js-rating-star value=(i+1) href='#'
+            - if @rating.value < i+1 
+              span.glyphicon.glyphicon-star-empty
+            - else
+              span.glyphicon.glyphicon-star
+    
+        .form-group
+          = f.hidden_field :value, class: 'js-rating-field'
+
 .row
   .col-sm-8
     
@@ -27,13 +46,24 @@ p = image_tag(@event.poster_url) if @event.poster?
       dt Preço 
       dd= @event.money_range
 
+    -if user_signed_in?
+      = simple_form_for(Comment.new, html: { role: 'form' }, url: url_for(action: :comment)) do |f|
+    
+        .form-group
+          = f.input :text, required: true, class: 'form-control'
+
+        = f.button :submit, class: 'btn btn-default'
+
+    ul
+    - for comment in @event.comments do
+      p #{comment.user_profile.name}: #{comment.text}
+
   -if @event.confirmed_guests.count > 0
     .col-sm-2
       h4 Confirmados
       ul
       - for guest in @event.confirmed_guests do
         = link_to(image_tag(guest.gravatar_path(50), class: "img-circle", alt: guest.name), user_profile_path(guest), title: guest.name)
-
 
 - if user_signed_in?
   - unless @event.confirmed_guests.include? current_user.user_profile
