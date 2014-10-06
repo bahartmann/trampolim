@@ -20,7 +20,13 @@ class EventsController < ApplicationController
   end
 
   def get_user_rating
-    @rating = @event.ratings.find_by(user_profile: current_user.user_profile) or @event.ratings.build(value: 0) if user_signed_in?
+    if user_signed_in?
+      if user_signed_in? and @event.ratings.find_by(user_profile: current_user.user_profile).nil?
+        @rating = @event.ratings.build(value: 0)
+      else
+        @rating = @event.ratings.find_by(user_profile: current_user.user_profile)
+      end
+    end
   end
 
   def fetch_parameters
@@ -47,6 +53,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @avg_rating = @event.ratings.sum(:value) / @event.ratings.where.not(value: 0).size unless @event.ratings.where.not(value: 0).size == 0
   end
 
   def create

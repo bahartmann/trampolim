@@ -3,30 +3,34 @@
 h1 = @event.title
 p = image_tag(@event.poster_url) if @event.poster?
 
-.row.panel.owner-box
-  .col-sm-2
-    = image_tag(@event.user_profile.gravatar_path(100), class: "img-circle")
+.row.panel.owner-box.col-xs-12.col-sm-6.col-md-6.col-lg-6
   .col-sm-4
+    = image_tag(@event.user_profile.gravatar_path(100), class: "img-circle")
+  .col-sm-8
     p
       | Evento criado por
       br/
       a href=user_profile_path(@event.user_profile) = @event.user_profile.name
 
-.row.panel.owner-box
-  .col-sm-2
-    p Avaliação
-    h4 -
-  .col-sm-4
-    -if user_signed_in?
+.row.panel.owner-box.col-xs-12.col-sm-5.col-md-5.col-lg-5.col-sm-offset-1.col-md-offset-1.col-lg-offset-1
+  .col-sm-6
+    p Nota Média
+    - if @avg_rating.nil?
+      p Dados insuficientes
+    - else
+      h4= @avg_rating
+  -if user_signed_in?
+    .col-sm-6
+      p Sua avaliação
       = simple_form_for(@rating, html: { method: 'post', role: 'form', class: 'js-rating-form' }, url: url_for(action: :rating)) do |f|
-
+        
         - 5.times do |i|
           a.js-rating-star value=(i+1) href='#'
             - if @rating.value < i+1 
               span.glyphicon.glyphicon-star-empty
             - else
               span.glyphicon.glyphicon-star
-    
+      
         .form-group
           = f.hidden_field :value, class: 'js-rating-field'
 
