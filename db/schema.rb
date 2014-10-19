@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006021007) do
+ActiveRecord::Schema.define(version: 20141012200510) do
 
   create_table "comments", force: true do |t|
     t.text     "text"
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(version: 20141006021007) do
   create_table "events_guests", id: false, force: true do |t|
     t.integer "event_id"
     t.integer "user_profile_id"
+  end
+
+  create_table "places", force: true do |t|
+    t.string  "name"
+    t.string  "formatted_address"
+    t.decimal "lat"
+    t.decimal "lon"
+    t.integer "event_id"
   end
 
   create_table "ratings", force: true do |t|

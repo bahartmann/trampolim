@@ -50,6 +50,14 @@ p = image_tag(@event.poster_url) if @event.poster?
       dt Preço 
       dd= @event.money_range
 
+      -if @event.place.name.present?
+        dt Local
+        dd= @event.place.name
+
+      -if @event.place.formatted_address.present?
+        dt Endereço
+        dd= @event.place.formatted_address
+
     -if user_signed_in?
       = simple_form_for(Comment.new, html: { role: 'form' }, url: url_for(action: :comment)) do |f|
     

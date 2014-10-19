@@ -47,6 +47,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @event.place = Place.new
   end
 
   def edit
@@ -58,6 +59,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.place.name = params['place_name_field'] unless @event.place.name.present?
     @event.user_profile = current_user.profile
     if @event.save
       redirect_to @event
@@ -106,7 +108,8 @@ class EventsController < ApplicationController
   def event_params
     params
       .require(:event)
-      .permit(:title, :about, :category, :datetime, :price, :poster, :poster_cache)
+      .permit(:title, :about, :category, :datetime, :price, :poster,
+        :poster_cache, {place_attributes: [:name, :formatted_address, :lat, :lon]})
   end
 
   def comment_params

@@ -29,4 +29,20 @@ $(function() {
     $('.js-rating-form').submit();
     return false;
   });
+
+  if ($("#autocomplete-place-input").length > 0) {
+    var input = $("#autocomplete-place-input")[0];
+    var options = {};
+
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+    var name = "";
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      var place = autocomplete.getPlace();
+      $('.place-name-field').val(place.name);
+      $('.place-addr-field').val(place.formatted_address);
+      $('.place-lat-field').val(place.geometry.location.lat());
+      $('.place-lng-field').val(place.geometry.location.lng());
+    });
+  }
 });

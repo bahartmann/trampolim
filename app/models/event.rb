@@ -13,8 +13,11 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :confirmed_guests, class_name: 'UserProfile', join_table: :events_guests
   has_many :comments
   has_many :ratings
+  has_one :place
 
-  validates_presence_of :title
+  accepts_nested_attributes_for :place, allow_destroy: true
+
+  validates_presence_of :title, :datetime
   validates_inclusion_of :category, in: Event.available_categories
 
   mount_uploader :poster, PosterUploader
