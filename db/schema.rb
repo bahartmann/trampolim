@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012200510) do
+ActiveRecord::Schema.define(version: 20141020021846) do
 
   create_table "comments", force: true do |t|
     t.text     "text"
@@ -34,6 +34,11 @@ ActiveRecord::Schema.define(version: 20141012200510) do
   create_table "events_guests", id: false, force: true do |t|
     t.integer "event_id"
     t.integer "user_profile_id"
+  end
+
+  create_table "followers", id: false, force: true do |t|
+    t.integer "user_profile_id"
+    t.integer "follower_id"
   end
 
   create_table "places", force: true do |t|

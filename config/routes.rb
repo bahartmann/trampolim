@@ -19,7 +19,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_profiles, only: [:show, :edit, :update]
-
+  resources :user_profiles do
+    member do
+      put 'follow', to: 'user_profiles#follow'
+    end
+  end
 
 end

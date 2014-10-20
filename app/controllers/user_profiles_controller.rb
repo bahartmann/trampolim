@@ -30,6 +30,13 @@ class UserProfilesController < ApplicationController
     end
   end
 
+  def follow
+    unless @user_profile.followers.include? current_user.user_profile
+      @user_profile.followers << current_user.user_profile
+    end
+    redirect_to @user_profile
+  end
+
   private
 
   def user_profile_params
