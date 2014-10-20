@@ -56,8 +56,9 @@ p = image_tag(@event.poster_url) if @event.poster?
       -if @event.place.formatted_address.present?
         dt Endereço
         dd= @event.place.formatted_address
-        
-      = link_to image_tag(@event.place.image_map_url), @event.place.map_url, target: '_blank'
+      
+      -if @event.place.lat.present? and @event.place.lon.present?
+        = link_to image_tag(@event.place.image_map_url), @event.place.map_url, target: '_blank'
 
     -if user_signed_in?
       = simple_form_for(Comment.new, html: { role: 'form' }, url: url_for(action: :comment)) do |f|
