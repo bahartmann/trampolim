@@ -4,10 +4,6 @@ h1 = @user_profile.name
 
 p = @user_profile.about
 
-- if user_signed_in?
-  - unless current_user.user_profile == @user_profile
-    =link_to 'Seguir', follow_user_profile_path(@user_profile), class: "btn btn-default", method: :put
-
 .row
   .col-sm-8
 
@@ -42,6 +38,9 @@ p = @user_profile.about
                   a.btn.btn-default href=event_path(event) role="button" Ver mais »
 
   .col-sm-2
+    - if user_signed_in? and current_user.user_profile != @user_profile
+      = follow_button (@user_profile.followers.include? current_user.user_profile)
+
     -if @user_profile.followers.count > 0
       h4 Seguidores
       ul

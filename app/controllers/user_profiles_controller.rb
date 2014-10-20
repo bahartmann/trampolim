@@ -31,7 +31,9 @@ class UserProfilesController < ApplicationController
   end
 
   def follow
-    unless @user_profile.followers.include? current_user.user_profile
+    if @user_profile.followers.include? current_user.user_profile
+      @user_profile.followers.delete(current_user.user_profile)
+    else
       @user_profile.followers << current_user.user_profile
     end
     redirect_to @user_profile
