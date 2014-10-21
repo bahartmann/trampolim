@@ -53,5 +53,5 @@ p = @user_profile.about
       - for following in @user_profile.following do
         = link_to(image_tag(following.gravatar_path(50), class: "img-circle", alt: following.name), user_profile_path(following), title: following.name)
 
-- if current_user.user_profile.id == @user_profile.id
+- if user_signed_in? and current_user.user_profile.id == @user_profile.id
   a.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
