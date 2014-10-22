@@ -37,6 +37,10 @@ gem 'simple_form'
 # Image handler
 gem 'carrierwave'
 
+# Javascript runtimes
+gem 'therubyracer', platforms: :ruby
+gem 'execjs'
+
 group :test, :development do
   gem 'pry'
   gem 'pry-nav'
