@@ -5,6 +5,7 @@ gem 'rails'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem 'pg'
 
 # CSS framework
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -36,6 +37,12 @@ gem 'simple_form'
 
 # Image handler
 gem 'carrierwave'
+
+# Gem for production deploys
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-rvm'
+gem 'capistrano-bundler'
 
 group :test, :development do
   gem 'pry'
