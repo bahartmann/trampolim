@@ -25,6 +25,8 @@ production:
   encoding: unicode
   database: trampolim
   pool: 5
+  username: trampolim
+  password: trampolim@123456
 
 cucumber:
   <<: *test
