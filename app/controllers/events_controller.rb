@@ -36,7 +36,11 @@ class EventsController < ApplicationController
 
   # GET /
   def index
-    @events = apply_filters Event.all
+    if params[:search]
+      @events = apply_filters Event.search_by_place(params[:search])
+    else
+      @events = apply_filters Event.all
+    end
   end
 
   def apply_filters events
@@ -109,7 +113,8 @@ class EventsController < ApplicationController
     params
       .require(:event)
       .permit(:title, :about, :category, :datetime, :price, :poster,
-        :poster_cache, {place_attributes: [:name, :formatted_address, :lat, :lon]})
+        :poster_cache, {place_attributes: [:name, :formatted_address, :lat, :lon]},
+        :search)
   end
 
   def comment_params

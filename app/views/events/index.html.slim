@@ -15,6 +15,10 @@ h1 Veja eventos de seu interesse!
     = filter_button MoneyRange.new(2), '2', url_for(price: 2), @price
     = filter_button MoneyRange.new(3), '3', url_for(price: 3), @price
 
+  = form_tag(events_path, :method => "get", id: "search-form") do
+    = text_field_tag :search, params[:search], placeholder: "Search places"
+    = submit_tag "Search", :name => nil
+
 ul
 - for event in @events do
   .col-lg-3.col-md-4.col-sm-6.col-xs-12

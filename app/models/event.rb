@@ -9,6 +9,11 @@ class Event < ActiveRecord::Base
     [0, 1, 2, 3]
   end
 
+  def self.search_by_place(search)
+    query = "name like ? or formatted_address like ?", "%#{search}%", "%#{search}%"
+    Event.joins(:place).where(query)
+  end
+
   belongs_to :user_profile
   has_and_belongs_to_many :confirmed_guests, class_name: 'UserProfile', join_table: :events_guests
   has_many :comments
