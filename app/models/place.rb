@@ -6,7 +6,7 @@ class Place < ActiveRecord::Base
     params = {
       markers: self.lat.to_s + ',' + self.lon.to_s,
       zoom: 15,
-      size: '600x300',
+      size: '1200x250',
       maptype: 'roadmap'
     }
     url = "http://maps.googleapis.com/maps/api/staticmap?#{params.to_query}"

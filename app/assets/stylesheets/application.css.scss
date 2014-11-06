@@ -137,6 +137,88 @@ p .alert {
   }
 }
 
+.event-show {
+  .poster-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+
+    img {
+      position: relative;
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
+  .title {
+    h1 {
+      padding: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+    position: relative;
+    width: 100%;
+    margin-top: -100px;
+    height: 100px;
+    color: white;
+    border-bottom-right-radius: 1px;
+    border-top-right-radius: 1px;
+
+    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+    transition: all 2s;
+  }
+
+  .title:hover {
+    height: 160px;
+    margin-top: -160px;
+  }
+  .concert-event {
+    background: -webkit-linear-gradient( rgba($violet, 0), rgba($violet, 0.9), $violet ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( rgba($violet, 0), rgba($violet, 0.9), $violet ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( rgba($violet, 0), rgba($violet, 0.9), $violet ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient( rgba($violet, 0), rgba($violet, 0.9), $violet ); /* Standard syntax */
+  }
+  .play-event {
+    background: -webkit-linear-gradient( rgba($salmon, 0), rgba($salmon, 0.9), $salmon ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( rgba($salmon, 0), rgba($salmon, 0.9), $salmon ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( rgba($salmon, 0), rgba($salmon, 0.9), $salmon ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient( rgba($salmon, 0), rgba($salmon, 0.9), $salmon ); /* Standard syntax */
+  }
+
+  .exibithion-event {
+    background: -webkit-linear-gradient( rgba($trampolim-green, 0), rgba($trampolim-green, 0.9), $trampolim-green ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( rgba($trampolim-green, 0), rgba($trampolim-green, 0.9), $trampolim-green ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( rgba($trampolim-green, 0), rgba($trampolim-green, 0.9), $trampolim-green ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient( rgba($trampolim-green, 0), rgba($trampolim-green, 0.9), $trampolim-green ); /* Standard syntax */
+  }
+
+  .primary-info {
+    padding: 10px 20px 5px 20px;
+    margin-bottom: 10px;
+    &:hover { background-color: lighten($dark-gray, 80%); }
+    
+    .secondary-info {
+      color: lighten($dark-gray, 30%);
+      margin-top: -10px;
+      margin-left: 14px;
+    }
+  }
+  .rating-box {
+    background-color: $dark-gray;
+    color: white;
+    padding-top: 5px;
+    text-align: center;
+    a {
+      color: darken(white, 30%);
+      &:hover { color: white; }
+    }
+  }
+  .event-map {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
 .mini-event-card {
   box-shadow: 1px 1px 5px 2px #b9b9b9;
   height: 200px;
