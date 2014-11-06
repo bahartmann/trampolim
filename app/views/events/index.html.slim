@@ -1,35 +1,56 @@
 
-h1 Veja eventos de seu interesse!
+.discovery
+  h1 Descubra eventos de seu interesse!
+  .row
+    .col-lg-4.col-md-4.col-sm-12.col-xs-12
+      .btn-group.btn-group-justified
+        = filter_button 'Plays', 'play', plays_events_path(price: @price), @category
+        = filter_button 'Concerts', 'concert', concerts_events_path(price: @price), @category
+        = filter_button 'Exibithions', 'exibithion', exibithions_events_path(price: @price), @category
 
-- if user_signed_in?
-  a.btn.btn-primary.pull-right href=new_event_path Criar Novo Evento
+    .col-lg-4.col-md-4.col-sm-12.col-xs-12
+      .btn-group.btn-group-justified
+        = filter_button MoneyRange.new(1), '1', url_for(price: 1), @price
+        = filter_button MoneyRange.new(2), '2', url_for(price: 2), @price
+        = filter_button MoneyRange.new(3), '3', url_for(price: 3), @price
 
-.row
-  .btn-group
-    = filter_button 'Plays', 'play', plays_events_path(price: @price), @category
-    = filter_button 'Concerts', 'concert', concerts_events_path(price: @price), @category
-    = filter_button 'Exibithions', 'exibithion', exibithions_events_path(price: @price), @category
-
-  .btn-group
-    = filter_button MoneyRange.new(1), '1', url_for(price: 1), @price
-    = filter_button MoneyRange.new(2), '2', url_for(price: 2), @price
-    = filter_button MoneyRange.new(3), '3', url_for(price: 3), @price
-
-  = form_tag(events_path, :method => "get", id: "search-form") do
-    = text_field_tag :search, params[:search], placeholder: "Search places"
-    = submit_tag "Search", :name => nil
+    .col-lg-4.col-md-4.col-sm-12.col-xs-12
+      = form_tag(events_path, method: "get", id: "search-form") do
+        .input-group
+          = text_field_tag :search, params[:search], placeholder: "Search places", class: "form-control"
+          span.input-group-btn
+            = submit_tag "Search", name: nil, class: "btn btn-default"
 
 ul
 - for event in @events do
-  .col-lg-3.col-md-4.col-sm-6.col-xs-12
-    .event-card
-      - if event.poster?
-        = image_tag(event.poster_url, class: "event-poster")
-      - else
-        = image_tag("defautl-poster.jpg", class: "event-poster")
+  .event-container.col-lg-3.col-md-4.col-sm-6.col-xs-12
+    a href=event_path(event)
+      .event-card class=event_class(event.category)
+        - if event.poster?
+          .event-poster style="background:url(#{event.poster_url}) no-repeat center center"
+            .filter
+        - else
+          .event-poster style="background:url(#{'assets/default-poster.jpg'}) no-repeat center center"
+        .event-title
+          h3= event.title
+        .event-informations-columns
+          .row
+            .date-column.col-lg-4.col-md-4.col-sm-4.col-xs-4
+              = event.datetime.day
+              .row.month
+                = event.datetime.strftime("%^b")
+            .guests-column.col-lg-4.col-md-4.col-sm-4.col-xs-4
+              .guests-number
+                = event.confirmed_guests.count
+              p.guests-label
+                ="confirmados"
+            .price-column.col-lg-4.col-md-4.col-sm-4.col-xs-4
+              = event.money_range
 
-      .event-informations  
-        h3= event.title
-        p= truncate(event.about, length: 100)
-        p
-          a.btn.btn-default href=event_path(event) role="button" Ver mais »
+        .event-informations.col-lg-12.col-md-12.col-sm-12.col-xs-12
+          -if event.place.name.present?
+            span.glyphicon.glyphicon-map-marker =event.place.name
+          -if event.datetime.present?
+            p
+              span.glyphicon.glyphicon-time =l(event.datetime, format: :short)
+        /a.btn.btn-default href=event_path(event) role="button" VER MAIS

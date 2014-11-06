@@ -3,32 +3,149 @@
 @import "user_session";
 @import "jquery.datetimepicker";
 
-.navbar-brand {
-  font-size: 28px;
+$violet: #584666;
+$salmon: #FF7F5F;
+$trampolim-green: #52C49F;
+$dark-gray: #262626;
+
+//global
+
+button, .btn {
+  border-radius: 1px;
 }
 
-.event-card {
-  box-shadow: 0 1px 4px #b9b9b9;
-  height: 400px;
-  margin-bottom: 10px;
-
-  .event-poster {
-    width: 100%;
-    height: 200px;
+.navbar-brand { font-size: 28px; }
+.navbar {
+  border-bottom-color: $dark-gray;
+  background-color: white;
+  a { color: $dark-gray; }
+  .navbar-logo { height: 26px; }
+  .navbar-toggle {
+    background-color: lighten($dark-gray, 5%);
+    .icon-bar {
+      background-color: white;
+    }
   }
-  .event-informations {
-    padding: 5px;
+}
+
+p .alert {
+  bottom: 4px;
+  position: fixed;
+  width: 100%;
+  left: 2px;
+  z-index: 2;
+}
+
+.discovery {
+  background-color: lighten($dark-gray, 80%);
+  padding: 1px 10px 10px 10px;
+  margin: 15px 0 20px 0;
+  color: $dark-gray;
+  .row { margin: 0; }
+  .col-sm-12.col-xs-12 {
+    margin-bottom: 3px;
+  }
+}
+
+.event-container{
+  padding-left: 8px;
+  padding-right: 8px;
+  a:hover { text-decoration: none; }
+
+  // category based event card properties 
+  .concert-event {
+    &:hover {
+      background-color: rgba($violet, 0.4);
+      .filter { background-color: rgba($violet, 0.4); }
+    }
+    .event-title { background-color: lighten($violet, 10%) }
+  }
+  .play-event {
+    &:hover {
+      background-color: rgba($salmon, 0.4);
+      .filter { background-color: rgba($salmon, 0.4); }
+    }
+    .event-title { background-color: $salmon }
+  }
+  .exibithion-event {
+    &:hover {
+      background-color: rgba($trampolim-green, 0.4);
+      .filter { background-color: rgba($trampolim-green, 0.4); }
+    }
+    .event-title { background-color: $trampolim-green }
+  }
+
+  // global event card properties
+  .event-card {
+    box-shadow: 1px 1px 5px 2px #b9b9b9;
+    height: 400px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+    color: $dark-gray;
+
+    .event-poster {
+      height: 200px;
+      width: 100%;
+
+      .filter {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 200px;
+      }
+    }
+
+    .event-title {
+      margin-top: -40px;
+      margin-right: 20%;
+      padding: 4px;
+      color: white;
+      border-bottom-right-radius: 1px;
+      border-top-right-radius: 1px;
+    }
+
+    .event-informations-columns {
+      font-size: 6vmin;
+      .row {
+        margin-left: 0;
+        margin-right: 0;
+        .date-column {
+          margin-top: 4px;
+          .month {
+            font-size: 3vmin;
+            margin-top: -10px;
+          }
+        }
+        .guests-column {
+          margin-top: 4px;
+          text-align: center;
+          padding-left: 5px;
+          padding-right: 5px;
+          .guests-label {
+            font-size: 2.5vmin;
+            margin-top: -10px;
+          }
+        }
+        .price-column {
+          text-align: center;
+          height: 10vmin;
+          line-height: 10vmin;
+        }
+      }
+    }
   }
 }
 
 .mini-event-card {
-  box-shadow: 0 1px 4px #b9b9b9;
+  box-shadow: 1px 1px 5px 2px #b9b9b9;
   height: 200px;
   margin-bottom: 5px;
 
   .event-poster {
     width: 100%;
     height: 100px;
+    -webkit-filter: grayscale(0.6);
   }
   .event-informations {
     padding: 5px;
