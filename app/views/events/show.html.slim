@@ -7,6 +7,10 @@
         =@event.title
 
     .primary-info
+
+      - if user_signed_in? && @event.user_profile.id == current_user.user_profile.id
+        a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
+
       -if @event.place.name.present?
         p 
           span.glyphicon.glyphicon-map-marker
@@ -53,36 +57,31 @@
           = link_to image_tag(@event.place.image_map_url, class: 'event-map'), @event.place.map_url, target: '_blank'
 
         -if user_signed_in?
+          h2 Deixe seu comentário!
           = simple_form_for(Comment.new, html: { role: 'form' }, url: url_for(action: :comment)) do |f|
-        
             .form-group
-              = f.input :text, required: true, class: 'form-control'
-
-            = f.button :submit, class: 'btn btn-default'
+              = f.input :text, required: true, class: 'form-control', label: false
+            = f.button :submit, class: 'btn btn-primary'
+        -else
+          h2 Veja o que estão dizendo!
 
         ul
         - for comment in @event.comments do
-          p #{comment.user_profile.name}: #{comment.text}
+          .comment
+            = image_tag(comment.user_profile.gravatar_path(50), class: "img-circle")
+            span.name #{comment.user_profile.name}, #{l(comment.created_at, format: :short)}
+            p #{comment.text}
 
-      -if @event.confirmed_guests.count > 0
-        .col-sm-2
-          h4 Confirmados
-          ul
-          - for guest in @event.confirmed_guests do
-            = link_to(image_tag(guest.gravatar_path(50), class: "img-circle", alt: guest.name), user_profile_path(guest), title: guest.name)
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12.profiles-column
+    h3 Organizador
+    = link_to image_tag(@event.user_profile.gravatar_path(100), class: "img-circle", alt: @event.user_profile.name, title: @event.user_profile.name), user_profile_path(@event.user_profile)
+    .row
+      - if user_signed_in?
+        - unless @event.confirmed_guests.include? current_user.user_profile
+          =link_to 'Confirmar Presença', confirm_event_path(@event), class: "btn btn-primary", method: :put
 
-    - if user_signed_in?
-      - unless @event.confirmed_guests.include? current_user.user_profile
-        =link_to 'Confirmar Presença', confirm_event_path(@event), class: "btn btn-default", method: :put
-
-      - if @event.user_profile.id == current_user.user_profile.id
-        a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
-    
-
-    .row.panel.owner-box.col-xs-12.col-sm-6.col-md-6.col-lg-6
-      .col-sm-4
-        = image_tag(@event.user_profile.gravatar_path(100), class: "img-circle")
-      .col-sm-8
-        .row Evento criado por
-        .row
-          a href=user_profile_path(@event.user_profile) = @event.user_profile.name
+    -if @event.confirmed_guests.count > 0
+      h3 Confirmados
+      .confirmed-guests
+        - for guest in @event.confirmed_guests do
+          = link_to(image_tag(guest.gravatar_path(80), class: "img-circle", alt: guest.name), user_profile_path(guest), title: guest.name)

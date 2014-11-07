@@ -14,6 +14,15 @@ button, .btn {
   border-radius: 1px;
 }
 
+.btn-primary {
+  background-color: $dark-gray;
+  border-color: darken($dark-gray, 10%);
+  &:hover {
+    background-color: darken($dark-gray, 10%);
+  border-color: darken($dark-gray, 20%);
+  }
+}
+
 .navbar-brand { font-size: 28px; }
 .navbar {
   border-bottom-color: $dark-gray;
@@ -197,6 +206,8 @@ p .alert {
     margin-bottom: 10px;
     &:hover { background-color: lighten($dark-gray, 80%); }
     
+    .btn { float: right; }
+
     .secondary-info {
       color: lighten($dark-gray, 30%);
       margin-top: -10px;
@@ -216,6 +227,36 @@ p .alert {
   .event-map {
     width: 100%;
     margin-top: 10px;
+  }
+  #new_comment {
+    textarea {
+      width: 100%;
+      border-radius: 2px;
+    }
+    .btn { margin-top: -10px; }
+  }
+  .comment {
+    margin-bottom: 20px;
+    img {
+      float: left;
+      margin-right: 10px;
+    }
+    .name { font-weight: 900; }
+  }
+
+  .profiles-column {
+    text-align: center;
+    .btn {
+      margin-top: 10px;
+      width: 50%;
+    }
+    .confirmed-guests {
+      padding-right: 20px;
+      padding-left: 20px;
+      img {
+        margin: 2px;
+      }
+    }
   }
 }
 
