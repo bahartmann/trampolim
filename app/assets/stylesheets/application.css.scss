@@ -147,6 +147,8 @@ p .alert {
 }
 
 .event-show {
+  margin-bottom: 30px;
+  
   .poster-container {
     width: 100%;
     height: 300px;
@@ -243,36 +245,97 @@ p .alert {
     }
     .name { font-weight: 900; }
   }
+}
 
-  .profiles-column {
-    text-align: center;
-    .btn {
-      margin-top: 10px;
-      width: 50%;
-    }
-    .confirmed-guests {
-      padding-right: 20px;
-      padding-left: 20px;
-      img {
-        margin: 2px;
-      }
+.profiles-column {
+  text-align: center;
+  .btn {
+    margin-top: 10px;
+    width: 50%;
+  }
+  .profiles-list {
+    padding-right: 20px;
+    padding-left: 20px;
+    img {
+      margin: 2px;
     }
   }
 }
 
-.mini-event-card {
-  box-shadow: 1px 1px 5px 2px #b9b9b9;
-  height: 200px;
-  margin-bottom: 5px;
+.profile-show {
+  margin-bottom: 30px;
+  .user-img {
+    float: left;
+    margin-right: 15px;
+    margin-top: 15px;
+  }
+  #update-profile {
+    float: right;
+    margin-top: 15px;
+  }
+}
 
-  .event-poster {
+.mini-event-container {
+  a:hover { text-decoration: none; }
+  
+  .mini-event-card {
+    box-shadow: 1px 1px 5px 2px #b9b9b9;
+    height: 200px;
+    margin-bottom: 5px;
+    color: $dark-gray;
+
+    .event-poster {
+      width: 100%;
+      height: 100px;
+    }
+    .event-informations {
+      padding: 5px;
+    }
+  }
+
+  .title {
+    h4 {
+      padding: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+    position: relative;
     width: 100%;
-    height: 100px;
-    -webkit-filter: grayscale(0.6);
+    margin-top: -50px;
+    height: 50px;
+    color: white;
+    border-bottom-right-radius: 1px;
+    border-top-right-radius: 1px;
+
+    -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
+    transition: all 1s;
   }
-  .event-informations {
-    padding: 5px;
+
+  .title:hover {
+    height: 110px;
+    margin-top: -110px;
   }
+  .concert-event {
+    background: -webkit-linear-gradient( rgba($violet, 0), rgba($violet, 0.9), $violet ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( rgba($violet, 0), rgba($violet, 0.9), $violet ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( rgba($violet, 0), rgba($violet, 0.9), $violet ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient( rgba($violet, 0), rgba($violet, 0.9), $violet ); /* Standard syntax */
+  }
+  .play-event {
+    background: -webkit-linear-gradient( rgba($salmon, 0), rgba($salmon, 0.9), $salmon ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( rgba($salmon, 0), rgba($salmon, 0.9), $salmon ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( rgba($salmon, 0), rgba($salmon, 0.9), $salmon ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient( rgba($salmon, 0), rgba($salmon, 0.9), $salmon ); /* Standard syntax */
+  }
+
+  .exibithion-event {
+    background: -webkit-linear-gradient( rgba($trampolim-green, 0), rgba($trampolim-green, 0.9), $trampolim-green ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( rgba($trampolim-green, 0), rgba($trampolim-green, 0.9), $trampolim-green ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( rgba($trampolim-green, 0), rgba($trampolim-green, 0.9), $trampolim-green ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient( rgba($trampolim-green, 0), rgba($trampolim-green, 0.9), $trampolim-green ); /* Standard syntax */
+  }
+  
 }
 
 .owner-box {

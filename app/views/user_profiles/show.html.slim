@@ -1,57 +1,61 @@
-h1 = @user_profile.name
-
-= image_tag(@user_profile.gravatar_path(100), class: "img-circle user-img")
-
-p = @user_profile.about
-
-.row
-  .col-sm-8
-
+.row.profile-show
+  .col-lg-8.col-md-8.col-sm-12.col-xs-12
+    = image_tag(@user_profile.gravatar_path(100), class: "img-circle user-img")
+    - if user_signed_in? and current_user.user_profile.id == @user_profile.id
+      a#update-profile.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
+    h1 = @user_profile.name
+    p = @user_profile.about
+    
     - if @user_profile.events.count > 0
       .row
         h3 Eventos Criados
-        - for event in @user_profile.events do
-          .col-lg-3.col-md-4.col-sm-6.col-xs-12
-            .mini-event-card
-              - if event.poster?
-                = image_tag(event.poster_url, class: "event-poster")
-              - else
-                = image_tag("defautl-poster.jpg", class: "event-poster")
-              .event-informations  
-                h5= event.title
-                p
-                  a.btn.btn-default href=event_path(event) role="button" Ver mais »
+        - for event in @user_profile.events.take(4) do
+          .mini-event-container.col-lg-3.col-md-4.col-sm-6.col-xs-12
+            a href=event_path(event)
+              .mini-event-card
+                - if event.poster?
+                  = image_tag(event.poster_url, class: "event-poster")
+                - else
+                  = image_tag("defautl-poster.jpg", class: "event-poster")
+                .event-informations  
+                  h5= event.title
 
     - if @user_profile.confirmed_events.count > 0
       .row
         h3 Eventos Confirmados
-        - for event in @user_profile.confirmed_events do
-          .col-lg-3.col-md-4.col-sm-6.col-xs-12
-            .mini-event-card
-              - if event.poster?
-                = image_tag(event.poster_url, class: "event-poster")
-              - else
-                = image_tag("defautl-poster.jpg", class: "event-poster")
-              .event-informations  
-                h5= event.title
-                p
-                  a.btn.btn-default href=event_path(event) role="button" Ver mais »
+        - for event in @user_profile.confirmed_events.take(4) do
+          .mini-event-container.col-lg-3.col-md-4.col-sm-6.col-xs-12
+            a href=event_path(event)
+              .mini-event-card
+                .poster-container
+                  - if event.poster?
+                    p = image_tag(event.poster_url, class: "event-poster")
+                  - else
+                    p = image_tag("defautl-poster.jpg", class: "event-poster")  
+                  .title class=event_class(event.category)
+                    h4
+                      =event.title
+              .row
+                .event-informations.col-lg-12.col-md-12.col-sm-12.col-xs-12
+                  -if event.datetime.present?
+                    p
+                      span.glyphicon.glyphicon-time =l(event.datetime, format: :short)
 
-  .col-sm-2
-    - if user_signed_in? and current_user.user_profile != @user_profile
-      = follow_button (@user_profile.followers.include? current_user.user_profile)
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12.profiles-column
 
     -if @user_profile.followers.count > 0
       h4 Seguidores
-      ul
-      - for follower in @user_profile.followers do
-        = link_to(image_tag(follower.gravatar_path(50), class: "img-circle", alt: follower.name), user_profile_path(follower), title: follower.name)
+      .profiles-list
+        - for follower in @user_profile.followers.take(24) do
+          = link_to(image_tag(follower.gravatar_path(80), class: "img-circle", alt: follower.name), user_profile_path(follower), title: follower.name)
+
+    .row
+      - if user_signed_in? and current_user.user_profile != @user_profile
+        = follow_button (@user_profile.followers.include? current_user.user_profile)
 
     -if @user_profile.following.count > 0
       h4 Seguindo
-      ul
-      - for following in @user_profile.following do
-        = link_to(image_tag(following.gravatar_path(50), class: "img-circle", alt: following.name), user_profile_path(following), title: following.name)
-
-- if user_signed_in? and current_user.user_profile.id == @user_profile.id
-  a.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
+      .profiles-list
+        - for following in @user_profile.following.take(24) do
+          = link_to(image_tag(following.gravatar_path(80), class: "img-circle", alt: following.name), user_profile_path(following), title: following.name)
