@@ -11,6 +11,8 @@ set :branch, 'production'
 
 set :pty, true
 
+set :linked_dirs, fetch(:linked_dirs) + %w{public/uploads}
+
 namespace :deploy do
  desc 'Restart application'
  task :restart do
