@@ -11,6 +11,6 @@ module Trampolim
   class Application < Rails::Application
     config.autoload_paths += %W(#{Rails.root}/app/uploaders #{Rails.root}/app/inputs)
     config.time_zone = 'Brasilia'
-    config.i18n.default_locale = 'en'
+    config.i18n.default_locale = 'pt-BR'
   end
 end
