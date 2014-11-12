@@ -83,7 +83,7 @@ end
 
 #then
 Then(/^I see an invalid login message$/) do
-  expect(page).to have_content "Invalid email or password."
+  expect(page).to have_content "Email ou senha inválidos."
 end
 
 Then(/^I should be signed out$/) do
@@ -92,41 +92,40 @@ Then(/^I should be signed out$/) do
 end
 
 Then(/^I see a successful sign in message$/) do
-  page.should have_content "Signed in successfully."
+  page.should have_content "Logado com sucesso."
 end
 
 Then(/^I should be signed in$/) do
-  #page.should have_content "Logout"
-  page.should_not have_content "Sign up"
-  page.should_not have_content "Login"
+  page.should have_content "Conta"
+  page.should_not have_content "Entrar"
 end
 
 Then(/^I should see a signed out message$/) do
-  page.should have_content "Signed out successfully."
+  page.should have_content "Saiu com sucesso."
 end
 
 Then(/^I should see a successful sign up message$/) do
-  page.should have_content "Welcome! You have signed up successfully."
+  page.should have_content "Bem-vindo! Você se registrou com sucesso."
 end
 
 Then(/^I should see an invalid email message$/) do
-  page.should have_content "Email is invalid"
+  page.should have_content "Email não é válido"
 end
 
 Then(/^I should see a missing password message$/) do
-  page.should have_content "Password can't be blank"
+  page.should have_content "Senha não pode ficar em branco"
 end
 
 Then(/^I should see a missing password confirmation message$/) do
-  page.should have_content "Password confirmation doesn't match Password"
+  page.should have_content "Confirmação de Senha não é igual a Senha"
 end
 
 Then(/^I should see a mismatched password message$/) do
-  page.should have_content "Password confirmation doesn't match Password"
+  page.should have_content "Confirmação de Senha não é igual a Senha"
 end
 
 Then(/^I should see an account edited message$/) do
-  page.should have_content "You updated your account successfully."
+  page.should have_content "Você atualizou sua conta com sucesso."
 end
 
 Then(/^I should see my name$/) do
