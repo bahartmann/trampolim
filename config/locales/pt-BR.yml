@@ -1,4 +1,10 @@
 pt-BR:
+  activerecord:
+    attributes:
+      user:
+        email: "Email"
+        password: "Senha"
+        password_confirmation: "Confirmação de senha"
   date:
     abbr_day_names:
     - Dom
