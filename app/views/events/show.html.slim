@@ -24,8 +24,7 @@
           -if @event.datetime.present?
             p
               span.glyphicon.glyphicon-time
-              = " Daqui tantos dias"
-            p.secondary-info =l(@event.datetime, format: :short)
+              =l(@event.datetime, format: :short)
         .col-lg-6.col-md-6.col-sm-6.col-xs-12
           p
             span.glyphicon.glyphicon-info-sign
@@ -65,7 +64,7 @@
             .form-group
               = f.input :text, required: true, class: 'form-control', label: false
             = f.button :submit, class: 'btn btn-primary'
-        -else
+        -elsif @event.comments.any?
           h2 Veja o que estão dizendo!
 
         ul
