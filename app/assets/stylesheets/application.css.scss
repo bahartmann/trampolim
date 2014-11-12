@@ -91,18 +91,20 @@ p .alert {
 
   // global event card properties
   .event-card {
-    box-shadow: 1px 1px 5px 2px #b9b9b9;
+    border: 1px solid #ddd;
     height: 360px;
     margin-bottom: 10px;
     overflow: hidden;
     position: relative;
     color: $dark-gray;
+    border-radius: 4px;
 
     .event-poster {
       height: 200px;
       width: 100%;
       border-bottom: 2px solid #333;
       background-size: cover;
+      box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.6);
 
       .filter {
         top: 0;
