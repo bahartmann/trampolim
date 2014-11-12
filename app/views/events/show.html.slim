@@ -1,7 +1,10 @@
 .row.event-show
   .col-lg-8.col-md-8.col-sm-12.col-xs-12
-    .poster-container
-      p = image_tag(@event.poster_url, class: "poster") if @event.poster?
+    - if @event.poster?
+      .show-poster style="background-image: url(#{@event.poster_url})"
+    - else
+      .show-poster style="background-image:url(#{'assets/default-poster.jpg'})"
+
     .title class=event_class(@event.category)
       h1
         =@event.title
