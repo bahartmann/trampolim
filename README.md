@@ -3,3 +3,6 @@
 # Trampolim
 
 Open source platform for event based social networks
+
+
+Software in action: http://trampolim.me/
