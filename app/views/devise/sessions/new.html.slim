@@ -1,10 +1,10 @@
 = form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "form-user-session", role: "form"}) do |f|
   h2.content-head.is-center Login
   .user-session-fields-container
-    = f.email_field :email, autofocus: true, class: 'form-control', placeholder: :email
-    = f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: :password
+    = f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email'
+    = f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Senha'
   - if devise_mapping.rememberable?
     = f.check_box :remember_me
-    = f.label :remember_me
+    = f.label :remember_me, 'Mantenha-me conectado'
   = f.submit "Entrar", class: 'btn btn-lg btn-primary btn-block'
   = render "devise/shared/links"

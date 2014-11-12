@@ -1,5 +1,5 @@
 h2
-  | Edit #{resource_name.to_s.humanize}
+  | Alterar #{resource_name.to_s.humanize}
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = devise_error_messages!
   div
@@ -11,7 +11,7 @@ h2
       | Currently waiting confirmation for: #{resource.unconfirmed_email}
   div
     = f.label :password
-    p= "(leave blank if you don't want to change it)"
+    p= "(deixe em branco caso não queira alterar)"
     br/
     = f.password_field :password, autocomplete: "off"
   div
@@ -20,11 +20,12 @@ h2
     = f.password_field :password_confirmation, autocomplete: "off"
   div
     = f.label :current_password
-    p= "(we need your current password to confirm your changes)"
+    p= "(precisamos da sua senha atual para confirmar as alterações)"
     br/
     = f.password_field :current_password, autocomplete: "off"
-  div= f.submit "Update"
-h3 Cancel my account
+  div= f.submit "Atualizar"
+h3 Excluír minha conta
 p
-  | Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+  | #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Tem certeza?" }, method: :delete}
+
+= link_to "Voltar", :back

@@ -18,9 +18,9 @@
     .col-lg-4.col-md-4.col-sm-12.col-xs-12
       = form_tag(events_path, method: "get", id: "search-form") do
         .input-group
-          = text_field_tag :search, params[:search], placeholder: "Search places", class: "form-control"
+          = text_field_tag :search, params[:search], placeholder: "Pesquisar locais", class: "form-control"
           span.input-group-btn
-            = submit_tag "Search", name: nil, class: "btn btn-default"
+            = submit_tag "Pesquisar", name: nil, class: "btn btn-default"
 
 .events-container
   - for event in @events do
