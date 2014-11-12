@@ -30,8 +30,8 @@ $(function() {
     return false;
   });
 
-  if ($("#autocomplete-place-input").length > 0) {
-    var input = $("#autocomplete-place-input")[0];
+  if ($("#event_place_name_field").length > 0) {
+    var input = $("#event_place_name_field")[0];
     var options = {};
 
     var autocomplete = new google.maps.places.Autocomplete(input, options);

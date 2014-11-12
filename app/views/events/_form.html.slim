@@ -3,21 +3,22 @@
   .form-group
     = f.input :title, required: true
   .form-group
-    = f.input :about, as: :text
-  .form-group
     = f.input :category, collection: Event.available_categories
   .form-group
     = f.input :datetime, required: true, as: :date_time_picker
   .form-group
     = f.input :price, value_method: :value, collection: Event.available_prices.map { |i| MoneyRange.new(i) }
   .form-group
-    input#autocomplete-place-input type="text" name="place_name_field" class="form-control"
+    = f.label :place_name_field, "Local"
+    input#event_place_name_field type="text" name="place_name_field" class="form-control"
     = f.simple_fields_for :place do |p|
       = p.hidden_field :name, class: 'place-name-field'
       = p.hidden_field :formatted_address, class: 'place-addr-field'
       = p.hidden_field :lat, class: 'place-lat-field'
       = p.hidden_field :lon, class: 'place-lng-field'
-
+  .form-group
+    = f.input :about, as: :text, class: 'about'
+  
   .form-group
     = f.file_field :poster
     = f.hidden_field :poster_cache
