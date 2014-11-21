@@ -21,7 +21,7 @@ $(function() {
     autoclose: true,
     todayBtn: true,
     pickerPosition: "bottom-left",
-    format: 'd/m/y h:i'
+    format: 'y/m/d h:i'
   });
 
   $('.js-rating-star').click(function(){
