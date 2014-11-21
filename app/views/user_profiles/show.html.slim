@@ -1,24 +1,26 @@
 .profile-show
   .row
     .col-lg-8.col-md-8.col-sm-12.col-xs-12
-      = image_tag(@user_profile.gravatar_path(100), class: "img-circle user-img")
-      - if user_signed_in? and current_user.user_profile.id == @user_profile.id
-        a#update-profile.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
-      h1 = @user_profile.name
-      p = @user_profile.about
-      
+      .row
+        = image_tag(@user_profile.gravatar_path(100), class: "img-circle user-img")
+        - if user_signed_in? and current_user.user_profile.id == @user_profile.id
+          a#update-profile.btn.btn-primary href=edit_user_profile_path(@user_profile) Atualizar Perfil
+        h1 = @user_profile.name
+        p = @user_profile.about
     
       - if @user_profile.events.count > 0
         .row
           h3 Eventos Criados
           - for event in @user_profile.events.take(3) do
-            = render partial: 'shared/event_card', locals: {event: event}
+            .event-container.col-lg-4.col-md-6.col-sm-6.col-xs-12
+              = render partial: 'shared/event_card', locals: {event: event}
 
       - if @user_profile.confirmed_events.count > 0
         .row
           h3 Eventos Confirmados
           - for event in @user_profile.confirmed_events.take(3) do
-            = render partial: 'shared/event_card', locals: {event: event}
+            .event-container.col-lg-4.col-md-6.col-sm-6.col-xs-12
+              = render partial: 'shared/event_card', locals: {event: event}
 
     .col-lg-4.col-md-4.col-sm-12.col-xs-12
       .profiles-column
