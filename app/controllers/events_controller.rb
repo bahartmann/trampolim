@@ -58,7 +58,9 @@ class EventsController < ApplicationController
   end
 
   def show
-    @avg_rating = @event.ratings.sum(:value) / @event.ratings.where.not(value: 0).size unless @event.ratings.where.not(value: 0).size == 0
+    unless @event.ratings.where.not(value: 0).empty?
+      @avg_rating = @event.ratings.sum(:value) / @event.ratings.where.not(value: 0).size
+    end
   end
 
   def create
