@@ -1,89 +1,90 @@
 .row.event-show
-  .col-lg-8.col-md-8.col-sm-12.col-xs-12
-    - if @event.poster?
-      .show-poster style="background-image: url(#{@event.poster_url})"
-    - else
-      .show-poster style="background-image:url(#{'assets/default-poster.jpg'})"
+  .container
+    .col-lg-8.col-md-8.col-sm-12.col-xs-12
+      - if @event.poster?
+        .show-poster style="background-image: url(#{@event.poster_url})"
+      - else
+        .show-poster style="background-image:url(#{'assets/default-poster.jpg'})"
 
-    .title class=event_class(@event.category)
-      h1
-        =@event.title
+      .title class=event_class(@event.category)
+        h1
+          =@event.title
 
-    .primary-info
+      .primary-info
 
-      - if user_signed_in? && @event.user_profile.id == current_user.user_profile.id
-        a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
+        - if user_signed_in? && @event.user_profile.id == current_user.user_profile.id
+          a.btn.btn-primary href=edit_event_path(@event) Atualizar Evento
 
-      -if @event.place.name.present?
-        p 
-          span.glyphicon.glyphicon-map-marker
-          = " #{@event.place.name}"
-        p.secondary-info =@event.place.formatted_address
-      .row
-        .col-lg-6.col-md-6.col-sm-6.col-xs-12
-          -if @event.datetime.present?
+        -if @event.place.name.present?
+          p 
+            span.glyphicon.glyphicon-map-marker
+            = " #{@event.place.name}"
+          p.secondary-info =@event.place.formatted_address
+        .row
+          .col-lg-6.col-md-6.col-sm-6.col-xs-12
+            -if @event.datetime.present?
+              p
+                span.glyphicon.glyphicon-time
+                =l(@event.datetime, format: :short)
+          .col-lg-6.col-md-6.col-sm-6.col-xs-12
             p
-              span.glyphicon.glyphicon-time
-              =l(@event.datetime, format: :short)
-        .col-lg-6.col-md-6.col-sm-6.col-xs-12
-          p
-            span.glyphicon.glyphicon-info-sign
-            = " #{@event.money_range}"
+              span.glyphicon.glyphicon-info-sign
+              = " #{@event.money_range}"
 
-    .row
-      .col-lg-8.col-md-8.col-sm-8.col-xs-12
-        = simple_format(@event.about)
-      .col-lg-4.col-md-4.col-sm-4.col-xs-12.row.panel.rating-box
-        .col-sm-6
-          p Nota Média
-          - if @avg_rating.nil?
-            p Dados insuficientes
-          - else
-            h4= @avg_rating
-        -if user_signed_in?
+      .row
+        .col-lg-8.col-md-8.col-sm-8.col-xs-12
+          = simple_format(@event.about)
+        .col-lg-4.col-md-4.col-sm-4.col-xs-12.row.panel.rating-box
           .col-sm-6
-            p Avalie!
-            = simple_form_for(@rating, html: { method: 'post', role: 'form', class: 'js-rating-form' }, url: url_for(action: :rating)) do |f|
-              
-              - 5.times do |i|
-                a.js-rating-star value=(i+1) href='#'
-                  - if @rating.value < i+1 
-                    span.glyphicon.glyphicon-star-empty
-                  - else
-                    span.glyphicon.glyphicon-star
+            p Nota Média
+            - if @avg_rating.nil?
+              p Dados insuficientes
+            - else
+              h4= @avg_rating
+          -if user_signed_in?
+            .col-sm-6
+              p Avalie!
+              = simple_form_for(@rating, html: { method: 'post', role: 'form', class: 'js-rating-form' }, url: url_for(action: :rating)) do |f|
+                
+                - 5.times do |i|
+                  a.js-rating-star value=(i+1) href='#'
+                    - if @rating.value < i+1 
+                      span.glyphicon.glyphicon-star-empty
+                    - else
+                      span.glyphicon.glyphicon-star
+                .form-group
+                  = f.hidden_field :value, class: 'js-rating-field'
+
+        .col-lg-12.col-md-12.col-sm-12.col-xs-12
+          -if @event.place.lat.present? and @event.place.lon.present?
+            = link_to image_tag(@event.place.image_map_url, class: 'event-map'), @event.place.map_url, target: '_blank'
+
+          -if user_signed_in?
+            h2 Deixe seu comentário!
+            = simple_form_for(Comment.new, html: { role: 'form' }, url: url_for(action: :comment)) do |f|
               .form-group
-                = f.hidden_field :value, class: 'js-rating-field'
+                = f.input :text, required: true, class: 'form-control', label: false
+              = f.button :submit, class: 'btn btn-primary'
+          -elsif @event.comments.any?
+            h2 Veja o que estão dizendo!
 
-      .col-lg-12.col-md-12.col-sm-12.col-xs-12
-        -if @event.place.lat.present? and @event.place.lon.present?
-          = link_to image_tag(@event.place.image_map_url, class: 'event-map'), @event.place.map_url, target: '_blank'
+          ul
+          - for comment in @event.comments do
+            .comment
+              = image_tag(comment.user_profile.gravatar_path(50), class: "img-circle")
+              span.name #{comment.user_profile.name}, #{l(comment.created_at, format: :short)}
+              p #{comment.text}
 
-        -if user_signed_in?
-          h2 Deixe seu comentário!
-          = simple_form_for(Comment.new, html: { role: 'form' }, url: url_for(action: :comment)) do |f|
-            .form-group
-              = f.input :text, required: true, class: 'form-control', label: false
-            = f.button :submit, class: 'btn btn-primary'
-        -elsif @event.comments.any?
-          h2 Veja o que estão dizendo!
+    .col-lg-4.col-md-4.col-sm-12.col-xs-12.profiles-column
+      h3 Organizador
+      = link_to image_tag(@event.user_profile.gravatar_path(100), class: "img-circle", alt: @event.user_profile.name, title: @event.user_profile.name), user_profile_path(@event.user_profile)
+      .row
+        - if user_signed_in?
+          - unless @event.confirmed_guests.include? current_user.user_profile
+            =link_to 'Confirmar Presença', confirm_event_path(@event), class: "btn btn-primary", method: :put
 
-        ul
-        - for comment in @event.comments do
-          .comment
-            = image_tag(comment.user_profile.gravatar_path(50), class: "img-circle")
-            span.name #{comment.user_profile.name}, #{l(comment.created_at, format: :short)}
-            p #{comment.text}
-
-  .col-lg-4.col-md-4.col-sm-12.col-xs-12.profiles-column
-    h3 Organizador
-    = link_to image_tag(@event.user_profile.gravatar_path(100), class: "img-circle", alt: @event.user_profile.name, title: @event.user_profile.name), user_profile_path(@event.user_profile)
-    .row
-      - if user_signed_in?
-        - unless @event.confirmed_guests.include? current_user.user_profile
-          =link_to 'Confirmar Presença', confirm_event_path(@event), class: "btn btn-primary", method: :put
-
-    -if @event.confirmed_guests.count > 0
-      h3 Confirmados
-      .profiles-list
-        - for guest in @event.confirmed_guests.take(30) do
-          = link_to(image_tag(guest.gravatar_path(80), class: "img-circle", alt: guest.name), user_profile_path(guest), title: guest.name)
+      -if @event.confirmed_guests.count > 0
+        h3 Confirmados
+        .profiles-list
+          - for guest in @event.confirmed_guests.take(30) do
+            = link_to(image_tag(guest.gravatar_path(80), class: "img-circle", alt: guest.name), user_profile_path(guest), title: guest.name)
