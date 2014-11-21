@@ -1,29 +1,27 @@
-h2
-  | Alterar #{resource_name.to_s.humanize}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = devise_error_messages!
-  div
-    = f.label :email
+.form-container
+  h2 Alterar Conta
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true, class: 'form-horizontal' }) do |f|
+    = devise_error_messages!
+    div.control-group
+      = f.label :email, class: 'control-label'
+      = f.email_field :email, autofocus: true, class: 'form-control'
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      div
+        | Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+    div.control-group
+      = f.label :password, class: 'control-label'
+      p= "(deixe em branco caso não queira alterar)"
+      = f.password_field :password, autocomplete: "off", class: 'form-control'
+    div.control-group
+      = f.label :password_confirmation, class: 'control-label'
+      = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
+    div.control-group
+      = f.label 'Senha atual', class: 'control-label'
+      p= "(precisamos da sua senha atual para confirmar as alterações)"
+      = f.password_field :current_password, autocomplete: "off", class: 'form-control'
     br/
-    = f.email_field :email, autofocus: true
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    div
-      | Currently waiting confirmation for: #{resource.unconfirmed_email}
-  div
-    = f.label :password
-    p= "(deixe em branco caso não queira alterar)"
-    br/
-    = f.password_field :password, autocomplete: "off"
-  div
-    = f.label :password_confirmation
-    br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  div
-    = f.label :current_password
-    p= "(precisamos da sua senha atual para confirmar as alterações)"
-    br/
-    = f.password_field :current_password, autocomplete: "off"
-  div= f.submit "Atualizar"
-h3 Excluír minha conta
-p
-  | #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Tem certeza?" }, method: :delete}
+    div= f.submit "Atualizar", class: 'btn'
+  h3 Excluir minha conta
+  p
+    | #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Tem certeza?" }, class: 'btn', method: :delete}

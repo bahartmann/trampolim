@@ -65,8 +65,14 @@ button, .btn {
   }
 }
 
+.form-container {
+  max-width: 730px;
+  margin-right: auto;
+  margin-left: auto;
+  img { margin-top: 10px; }
+}
+
 .events-container {
-  padding: 40px;
   overflow: hidden;
 }
 

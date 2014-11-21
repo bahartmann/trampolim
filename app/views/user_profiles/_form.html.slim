@@ -1,6 +1,6 @@
 = simple_form_for(@user_profile, html: {multipart: true, class: 'form-horizontal' }) do |f|
-  = f.input :name, required: true
-  = f.input :about, as: :text
+  = f.input :name, required: true, label: 'Nome'
+  = f.input :about, as: :text, label: 'Fale sobre você'
   
   = image_tag(@user_profile.gravatar_path(100), class: "img-circle")
   
