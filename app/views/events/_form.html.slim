@@ -1,13 +1,13 @@
 = simple_form_for(@event, html: {multipart: true, role: 'form' }) do |f|
   
   .form-group
-    = f.input :title, required: true
+    = f.input :title, required: true, placeholder: "Escolha um título que melhor descreva seu evento de forma breve"
   .form-group
-    = f.input :category, collection: Event.available_categories
+    = f.input :category, collection: Event.available_categories, prompt: "Selecione a categoria em que o evento se enquadra"
   .form-group
     = f.input :datetime, required: true, as: :date_time_picker
   .form-group
-    = f.input :price, value_method: :value, collection: Event.available_prices.map { |i| MoneyRange.new(i) }
+    = f.input :price, value_method: :value, collection: Event.available_prices.map { |i| MoneyRange.new(i) }, prompt: "Selecione a faixa de preço correspondente ao valor do seu evento"
   .form-group
     = f.label :place_name_field, "Local"
     input#event_place_name_field type="text" name="place_name_field" class="form-control"
@@ -17,7 +17,7 @@
       = p.hidden_field :lat, class: 'place-lat-field'
       = p.hidden_field :lon, class: 'place-lng-field'
   .form-group
-    = f.input :about, as: :text, class: 'about'
+    = f.input :about, as: :text, class: 'about', placeholder: "Conte mais sobre o evento! Você pode utilizar tags HTML para formatar sua descrição."
   
   .form-group
     = f.file_field :poster

@@ -2,6 +2,7 @@ pt-BR:
   activerecord:
     models:
       user: Usuário
+      user_profile: Perfil
       event: Evento
     attributes:
       user:
@@ -15,6 +16,10 @@ pt-BR:
         datetime: Data e hora
         price: Faixa de preço
         poster: Poster
+  category:
+    concert: Show
+    play: Peça de Teatro
+    exibithion: Exposição
   date:
     abbr_day_names:
     - Dom
