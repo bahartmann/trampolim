@@ -1,5 +1,8 @@
 pt-BR:
   activerecord:
+    models:
+      user: Usuário
+      event: Evento
     attributes:
       user:
         email: "Email"

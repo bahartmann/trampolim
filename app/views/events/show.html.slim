@@ -64,7 +64,7 @@
             = simple_form_for(Comment.new, html: { role: 'form' }, url: url_for(action: :comment)) do |f|
               .form-group
                 = f.input :text, required: true, class: 'form-control', label: false
-              = f.button :submit, class: 'btn btn-primary'
+              = f.button :submit, 'Comentar', class: 'btn btn-primary'
           -elsif @event.comments.any?
             h2 Veja o que estão dizendo!
 
