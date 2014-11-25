@@ -70,15 +70,18 @@ When(/^I sign up with a mismatched password confirmation$/) do
   sign_up
 end
 
-When(/^I edit my account details$/) do
-  click_link "Edit account"
-  fill_in "user_name", :with => "newname"
-  fill_in "user_current_password", :with => @visitor[:password]
-  click_button "Update"
+When(/^I edit my account details with valid data$/) do
+  click_link "Alterar Conta"
+  fill_in "user_email", with: "newemail@mail.com"
+  fill_in "user_current_password", with: @visitor[:password]
+  click_button "Atualizar"
 end
 
-When(/^I look at the list of users$/) do
-  visit '/'
+When(/^I edit my profile details with valid data$/) do
+  click_link "Alterar Perfil"
+  fill_in "user_profile_name", with: "New Name"
+  fill_in "user_profile_about", with: "Curabitur dignissim non enim quis mollis."
+  click_button "Atualizar Perfil"
 end
 
 #then
@@ -128,9 +131,9 @@ Then(/^I should see an account edited message$/) do
   page.should have_content "Você atualizou sua conta com sucesso."
 end
 
-Then(/^I should see my name$/) do
-  create_user
-  page.should have_content @user[:name]
+Then(/^I should see the new profile data$/) do
+  page.should have_content "New Name"
+  page.should have_content "Curabitur dignissim non enim quis mollis."
 end
 
 def create_visitor
