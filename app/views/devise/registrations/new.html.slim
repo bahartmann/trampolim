@@ -1,5 +1,5 @@
 = form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "form-user-session", role: "form"} ) do |f|
-  h2.content-head.is-center.form-signin-heading Cadastre-se!
+  h1.content-head.is-center.form-signin-heading Cadastre-se!
   = devise_error_messages!
   .user-session-fields-container
     = f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email'

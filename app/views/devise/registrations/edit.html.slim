@@ -1,5 +1,5 @@
 .form-container
-  h2 Alterar Conta
+  h1 Alterar Conta
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true, class: 'form-horizontal' }) do |f|
     = devise_error_messages!
     div.control-group
@@ -22,6 +22,6 @@
       = f.password_field :current_password, autocomplete: "off", class: 'form-control'
     br/
     div= f.submit "Atualizar", class: 'btn'
-  h3 Excluir minha conta
+  h2 Excluir minha conta
   p
     | #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Tem certeza?" }, class: 'btn', method: :delete}
