@@ -10,7 +10,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.search_by_place(search)
-    query = "name like ? or formatted_address like ?", "%#{search}%", "%#{search}%"
+    query = "lower(name) like ? or lower(formatted_address) like ?", "%#{search.downcase}%", "%#{search.downcase}%"
     Event.joins(:place).where(query)
   end
 
