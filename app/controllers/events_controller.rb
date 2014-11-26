@@ -55,6 +55,7 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event.datetime = l(@event.datetime, format: :default)
   end
 
   def show
@@ -77,7 +78,10 @@ class EventsController < ApplicationController
   end
 
   def update
-    if @event.update_attributes(event_params)
+    params = event_params
+    params['datetime'] = Time.strptime(event_params['datetime'], I18n.translate("time.formats.default"))
+
+    if @event.update_attributes(params)
       redirect_to @event
     else
       render "edit"
